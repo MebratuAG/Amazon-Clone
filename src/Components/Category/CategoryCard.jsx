@@ -13,5 +13,4 @@ function CategoryCard({ data }) {
     </div>
   );
 }
-
 export default CategoryCard;
