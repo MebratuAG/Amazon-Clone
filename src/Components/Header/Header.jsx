@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Header.module.css";
+import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { SlLocationPin } from "react-icons/sl";
 import { FaShoppingCart } from "react-icons/fa";
@@ -12,12 +13,12 @@ function Header() {
         <div className={classes.header__container}>
           {/* {logo} */}
           <div className={classes.logo__container}>
-            <a href="#">
+            <Link to="/">
               <img
                 src="https://pngimg.com/uploads/amazon/small/amazon_PNG11.png"
                 alt="Amazon Logo"
               />
-            </a>
+            </Link>
             {/* {delivery} */}
             <div className={classes.delivery}>
               <span>
@@ -40,7 +41,7 @@ function Header() {
           </div>
           {/* right side link */}
           <div className={classes.order__container}>
-            <a href="" className={classes.language}>
+            <Link to="" className={classes.language}>
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/640px-Flag_of_the_United_States.svg.png"
                 alt=""
@@ -48,22 +49,22 @@ function Header() {
               <select>
                 <option value="">EN</option>
               </select>
-            </a>
-            <a href="">
+            </Link>
+            <Link to="">
               <div>
                 <p>Sign In</p>
                 <span>Account & Lists</span>
               </div>
-            </a>
-            <a href="">
+            </Link>
+            <Link to="/orders">
               <p>Returns</p>
               <span>& Orders</span>
-            </a>
-            {/* <a to={"/cart"}> */}
-            <a href="" className={classes.cart}>
+            </Link>
+            {/* <Link to={"/cart"}> */}
+            <Link to="/cart" className={classes.cart}>
               <FaShoppingCart size={35} />
               <span>0</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
