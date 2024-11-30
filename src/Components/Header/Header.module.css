@@ -2,6 +2,11 @@
   margin: 0;
   padding: 0;
 }
+.fixed {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 .header__container {
   height: 70px;
   display: flex;
