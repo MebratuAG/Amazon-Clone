@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./Header.module.css";
 import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { SlLocationPin } from "react-icons/sl";
 import { FaShoppingCart } from "react-icons/fa";
 import LowerHeader from "./LowerHeader";
+import { DataContext } from "../DataProvider/DataProvider";
 
-function Header() {
+const Header = () => {
+  const [{ basket }, dispatch] = useContext(DataContext);
+  // console.log(basket.length);
   return (
     <>
       <section>
@@ -63,7 +66,7 @@ function Header() {
             {/* <Link to={"/cart"}> */}
             <Link to="/cart" className={classes.cart}>
               <FaShoppingCart size={35} />
-              <span>0</span>
+              <span>{basket.length}</span>
             </Link>
           </div>
         </div>
@@ -71,5 +74,5 @@ function Header() {
       <LowerHeader />
     </>
   );
-}
+};
 export default Header;
