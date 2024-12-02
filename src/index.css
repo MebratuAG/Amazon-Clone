@@ -7,3 +7,6 @@
   --primary-color: #febd69;
   --primary-shade: #d49644;
 }
+.sidebar {
+  display: none;
+}
