@@ -12,6 +12,8 @@ function Routing() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
+        {/* <Route path="/Amazon-Clone" element={<Landing />} />
+        Added for Deploy purpose */}
         <Route path="/auto" element={<SignIn />} />
         <Route path="/payments" element={<Payment />} />
         <Route path="/orders" element={<Orders />} />
