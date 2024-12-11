@@ -7,7 +7,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { Type } from "../../../Utility/action.type.js";
-import { ClipLoader, CircleLoader } from "react-spinners";
+import { ClipLoader } from "react-spinners";
 import { DataContext } from "../../../src/Components/DataProvider/DataProvider.jsx";
 function Auth() {
   // function Signup() {
@@ -43,6 +43,8 @@ function Auth() {
           setLoading({ ...loading, signIn: false });
         });
     } else {
+      setLoading({ ...loading, signUP: true });
+
       createUserWithEmailAndPassword(auth, email, password)
         .then((userInfo) => {
           setLoading({ ...loading, signUP: true });
@@ -119,8 +121,9 @@ function Auth() {
           className={classes.login__registerButton}
         >
           {loading.signUP ? (
-            <CircleLoader color="#000" size={15} />
+            <ClipLoader color="#000" size={15} />
           ) : (
+            // <PropagateLoader color="#000" size={15} />
             "Create your Amazon Account"
           )}
         </button>
