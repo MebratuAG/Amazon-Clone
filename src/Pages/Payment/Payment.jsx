@@ -7,6 +7,8 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import CurrencyFormat from "../../Components/CurrencyFormat/CurrencyFormat";
 import { useNavigate } from "react-router-dom";
 import { Type } from "../../../Utility/action.type";
+import { axiosInstance } from "../../Api/axios";
+import { db } from "../../../Utility/firebase";
 
 function Payment() {
   const [{ user, basket }, dispatch] = useContext(DataContext);
@@ -33,7 +35,10 @@ function Payment() {
 
   const handlePayment = async (e) => {
     e.preventDefault();
+
+    //3. after the confirmation --> order firestore database save, clear basket
     try {
+      //1.backend || functions-- -> conatact to the client secret
       setProcessing(true);
       const response = await axiosInstance({
         method: "POST",
@@ -41,20 +46,22 @@ function Payment() {
       });
 
       const clientSecret = response.data?.clientSecret;
-
+      //2.Client side (react side confirmaiton)
       let confirmation = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
         },
       });
       let paymentIntent = confirmation.error.payment_intent;
+
+      //3. after the confirmation --> order firestore database save, clear basket
       await db
         .collection("users")
         .doc(user?.uid)
         .collection("orders")
         .doc(paymentIntent.id)
         .set({
-          basket,
+          basket: basket,
           amount: paymentIntent.amount,
           created: paymentIntent.created,
         })
@@ -63,13 +70,12 @@ function Payment() {
         });
       dispatch({ type: Type.EMPTY_BASKET });
       setProcessing(false);
-      navigate("/orders", { state: { msg: "you have placed new Order" } });
+      navigate("/orders", { state: { msg: "You have placed new Order" } });
     } catch (error) {
       console.log(error.message);
       setProcessing(false);
     }
   };
-
   return (
     <LayOut>
       {/* header */}
@@ -119,7 +125,17 @@ function Payment() {
                       <p>Total Order |</p> <CurrencyFormat amount={total} />
                     </span>
                   </div>
-                  <button type="submit">Pay Now</button>
+                  <button type="submit">
+                    {processing ? (
+                      <div className={classes.loading}>
+                        <Clipboard color="gray" size={12} />
+                        <p>Please Wait...</p>
+                        
+                      </div>
+                    ) : (
+                      "Pay Now"
+                    )}
+                  </button>
                 </div>
               </form>
             </div>
