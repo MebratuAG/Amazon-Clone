@@ -41,9 +41,7 @@ function Routing() {
               msg={"Please Login First To See Your Orders!"}
               redirect={"/orders"}
             >
-              <Elements stripe={stripePromise}>
-                <Orders />
-              </Elements>
+              <Orders />
             </ProtectedRoute>
           }
         />

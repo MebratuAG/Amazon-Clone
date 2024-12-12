@@ -51,7 +51,7 @@ function Payment() {
           card: elements.getElement(CardElement),
         },
       });
-
+      // console.log(paymentIntent);
       // let confirmation = await stripe.confirmCardPayment(clientSecret, {
       //   payment_method: {
       //     card: elements.getElement(CardElement),
@@ -75,7 +75,7 @@ function Payment() {
       // empty the basket
       dispatch({ type: Type.EMPTY_BASKET });
       setProcessing(false);
-      navigate("/orders", { state: { msg: "you have placed new Order" } });
+      navigate("/orders", { state: { msg: "You Have Placed New Orders" } });
     } catch (error) {
       console.log(error.message);
       setProcessing(false);
